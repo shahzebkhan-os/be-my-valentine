@@ -3,11 +3,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const config = {
         gifs: {
             initial: "./gifs/initial.gif",
-            sad1: "./gifs/sad1.gif",
+            sad1: "./gifs/sad1.gif", // Keep existing sad1 (puppy)
             sad2: "./gifs/sad2.gif",
             sad3: "./gifs/sad3.gif",
             sad4: "./gifs/sad4.gif",
             sad5: "./gifs/sad5.gif",
+            sad6: "./gifs/sad6.gif",
+            sad7: "./gifs/sad7.gif",
             success: "./gifs/success.gif"
         },
         messages: [
@@ -40,8 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
     noBtn.addEventListener('click', () => {
         noClickCount++;
 
-        // 1. Change GIF and Message (First 5 clicks)
-        if (noClickCount <= 5) {
+        // 1. Change GIF and Message (First 7 clicks)
+        if (noClickCount <= 7) {
             // Update Message
             dynamicMessage.style.opacity = 0;
             setTimeout(() => {
@@ -60,8 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
         yesBtn.style.fontSize = `${currentSize * 1.1}px`;
 
-        // 3. Runaway Logic (After 5 clicks)
-        if (noClickCount >= 5) {
+        // 3. Runaway Logic (After 7 clicks)
+        if (noClickCount >= 7) {
             makeButtonRunAway();
         }
     });
