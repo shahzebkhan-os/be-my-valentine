@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sad12: "./gifs/sad12.gif",
             sad13: "./gifs/sad13.gif",
             sad14: "./gifs/sad14.gif",
-            success: "./gifs/success.gif"
+            success: "./gifs/success_v2.gif"
         },
         messages: [
             "Are you sure? 🥺",
