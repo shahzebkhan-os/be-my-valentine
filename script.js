@@ -2,15 +2,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Configuration
     const config = {
         gifs: {
-            initial: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmM2ZThhN2w0aG55dG5wY2o3YXY5aGd2b2QzY3V3eWJ3Y3V3eWJ3Y3V3eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif",
-            sad1: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/L95W4wv8nnb9K/giphy.gif", // Sad puppy
-            sad2: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/OPU6pZ2CVJbCSCWkzG/giphy.gif", // Crying cat
-            sad3: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/d2lcHJTG5TSCnT0I/giphy.gif", // Crying office
-            sad4: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/7SF5scGB2AFrgsXP63/giphy.gif", // Heartbroken
-            sad5: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/BEob5qwFkQRzXd9Lr/giphy.gif", // Devastated
-            sad6: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/13OflYHKPtjqYRm/giphy.gif", // Extra sad
-            sad7: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/qQdL532ZANbjy/giphy.gif", // Extra sad 2
-            success: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3J3a3Z5Z3Z5Z3Z5Z3Z5Z3Z5Z3Z5Z3Z5Z3Z5Z3Z5Z3Z5Z3Z5Z3Z5ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/26BRv0ThflsKCqM6k/giphy.gif" // Celebration
+            initial: "./gifs/initial.gif",
+            sad1: "./gifs/sad1.gif",
+            sad2: "./gifs/sad2.gif",
+            sad3: "./gifs/sad3.gif",
+            sad4: "./gifs/sad4.gif",
+            sad5: "./gifs/sad5.gif",
+            success: "./gifs/success.gif"
         },
         messages: [
             "Are you sure? 🥺",
@@ -82,17 +80,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         noBtn.style.position = 'fixed'; 
         noBtn.style.transition = 'all 0.3s ease'; 
-        noBtn.style.zIndex = '1000'; // Ensure it's on top
+        noBtn.style.zIndex = '9999'; // Ensure it's on top of EVERYTHING
         
         // Ensure button stays within viewport with padding
-        const padding = 20;
+        // Using a larger padding to ensure it never touches the edge
+        const padding = 50; 
         const btnRect = noBtn.getBoundingClientRect();
+        const btnWidth = btnRect.width || 100; // Fallback if width is 0
+        const btnHeight = btnRect.height || 50; // Fallback
         
         // Calculate safe area (Screen width minus button width minus padding)
-        const maxX = window.innerWidth - btnRect.width - padding;
-        const maxY = window.innerHeight - btnRect.height - padding;
+        const maxX = window.innerWidth - btnWidth - padding;
+        const maxY = window.innerHeight - btnHeight - padding;
         
         // Ensure coordinates are positive (prevent going off top/left)
+        // Use random position between padding and max safe area
         const randomX = Math.max(padding, Math.min(Math.random() * maxX, maxX));
         const randomY = Math.max(padding, Math.min(Math.random() * maxY, maxY));
 
@@ -101,10 +103,29 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Mobile specific: If it overlaps Yes button, move again
         const yesRect = yesBtn.getBoundingClientRect();
-        const noRect = noBtn.getBoundingClientRect(); // New position
+        // Recalculate noRect based on new coordinates we just assigned (conceptually)
+        // or just wait for next tick? 
+        // Better: simple overlap check with the calculated coordinates
         
-        if (isOverlapping(yesRect, noRect)) {
-            makeButtonRunAway(); // Recursively try again
+        const noLeft = randomX;
+        const noRight = randomX + btnWidth;
+        const noTop = randomY;
+        const noBottom = randomY + btnHeight;
+
+        const yesLeft = yesRect.left;
+        const yesRight = yesRect.right;
+        const yesTop = yesRect.top;
+        const yesBottom = yesRect.bottom;
+
+        // Check intersection
+        const overlaps = !(noRight < yesLeft || 
+                          noLeft > yesRight || 
+                          noBottom < yesTop || 
+                          noTop > yesBottom);
+
+        if (overlaps) {
+            // Recursively try again immediately
+            makeButtonRunAway(); 
         }
     }
 
