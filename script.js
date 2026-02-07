@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
             sad5: "./gifs/sad5.gif",
             sad6: "./gifs/sad6.gif",
             sad7: "./gifs/sad7.gif",
+            sad8: "./gifs/sad8.gif",
+            sad9: "./gifs/sad9.gif",
             success: "./gifs/success.gif"
         },
         messages: [
@@ -20,7 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
             "You're breaking my heart! 💔",
             "Please? Pretty please? 🌸",
             "Don't do this to me! 🥺",
-            "I believe in us! 💖"
+            "I believe in us! 💖",
+            "Okay, now I'm getting mad! 😠",
+            "You're really mean! 😭"
         ]
     };
 
@@ -42,8 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
     noBtn.addEventListener('click', () => {
         noClickCount++;
 
-        // 1. Change GIF and Message (First 7 clicks)
-        if (noClickCount <= 7) {
+        // 1. Change GIF and Message (Up to 9 clicks)
+        if (noClickCount <= 9) {
             // Update Message
             dynamicMessage.style.opacity = 0;
             setTimeout(() => {
@@ -58,15 +62,45 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // 2. Make Yes Button Grow (Optional fun mechanic)
+        // 2. Make Yes Button Grow
         const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
         yesBtn.style.fontSize = `${currentSize * 1.1}px`;
 
-        // 3. Runaway Logic (After 7 clicks)
-        if (noClickCount >= 7) {
+        // 3. Runaway Logic (Starts after 7 clicks)
+        if (noClickCount >= 7 && noClickCount < 10) {
             makeButtonRunAway();
         }
+
+        // 4. Breaking Logic (At 10th click)
+        if (noClickCount === 10) {
+            breakButton();
+        }
     });
+
+    function breakButton() {
+        noBtn.style.position = 'fixed';
+        noBtn.innerHTML = "💔 Broken...";
+        noBtn.style.pointerEvents = "none"; // Disable clicking
+        noBtn.style.backgroundColor = "#555";
+        noBtn.style.transformOrigin = "center";
+        
+        // Breaking animation
+        noBtn.animate([
+            { transform: 'rotate(0deg) scale(1)', opacity: 1 },
+            { transform: 'rotate(15deg) scale(0.9) translateY(10px)', opacity: 0.8 },
+            { transform: 'rotate(-15deg) scale(0.8) translateY(50px)', opacity: 0.6 },
+            { transform: 'rotate(45deg) scale(0.5) translateY(200px)', opacity: 0 }
+        ], {
+            duration: 1000,
+            fill: 'forwards',
+            easing: 'ease-in'
+        });
+
+        // Hide completely after animation
+        setTimeout(() => {
+            noBtn.style.display = 'none';
+        }, 1000);
+    }
 
     // Yes Button Logic
     yesBtn.addEventListener('click', () => {
@@ -140,6 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function celebrate() {
         successOverlay.style.display = 'flex';
+        noBtn.style.display = 'none'; // Ensure No button is gone
         startConfetti();
     }
 
