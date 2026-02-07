@@ -2,13 +2,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Configuration
     const config = {
         gifs: {
-            initial: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmM2ZThhN2w0aG55dG5wY2o3YXY5aGd2b2QzY3V3eWJ3Y3V3eWJ3Y3V3eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif", // Cute shy
-            sad1: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/L95W4wv8nnb9K/giphy.gif", // Sad puppy
-            sad2: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/OPU6pZ2CVJbCSCWkzG/giphy.gif", // Crying cat
-            sad3: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/d2lcHJTG5TSCnT0I/giphy.gif", // Crying office
-            sad4: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/7SF5scGB2AFrgsXP63/giphy.gif", // Heartbroken
-            sad5: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/BEob5qwFkQRzXd9Lr/giphy.gif", // Devastated
-            success: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3J3a3Z5Z3Z5Z3Z5Z3Z5Z3Z5Z3Z5Z3Z5Z3Z5Z3Z5Z3Z5Z3Z5Z3Z5ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/26BRv0ThflsKCqM6k/giphy.gif" // Celebration
+            initial: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmM2ZThhN2w0aG55dG5wY2o3YXY5aGd2b2QzY3V3eWJ3Y3V3eWJ3Y3V3eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif",
+            sad1: "https://media.giphy.com/media/TRgyI2f0hRHBS/giphy.gif", // Sad puppy
+            sad2: "https://media.giphy.com/media/OPU6pZ2CVJbCSCWkzG/giphy.gif", // Crying cat
+            sad3: "https://media.giphy.com/media/d2lcHJTG5TSCnT0I/giphy.gif", // Crying office
+            sad4: "https://media.giphy.com/media/7SF5scGB2AFrgsXP63/giphy.gif", // Heartbroken
+            sad5: "https://media.giphy.com/media/BEob5qwFkQRzXd9Lr/giphy.gif", // Devastated
+            success: "https://media.giphy.com/media/26BRv0ThflsKCqM6k/giphy.gif" // Celebration
         },
         messages: [
             "Are you sure? 🥺",
@@ -70,8 +70,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function makeButtonRunAway() {
-        noBtn.style.position = 'fixed'; // Change to fixed to move freely relative to viewport
-        noBtn.style.transition = 'all 0.3s ease'; // Smooth movement
+        // Fix: Move button to body to ensure fixed positioning works relative to viewport
+        // (Escape any transformed parent containers)
+        if (noBtn.parentNode !== document.body) {
+            document.body.appendChild(noBtn);
+        }
+
+        noBtn.style.position = 'fixed'; 
+        noBtn.style.transition = 'all 0.3s ease'; 
+        noBtn.style.zIndex = '1000'; // Ensure it's on top
         
         // Ensure button stays within viewport with padding
         const padding = 20;
