@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sad12: "./gifs/sad12.gif",
             sad13: "./gifs/sad13.gif",
             sad14: "./gifs/sad14.gif",
+            broken: "./gifs/broken.gif",
             success: "./gifs/success_v2.gif"
         },
         messages: [
@@ -88,6 +89,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function breakButton() {
+        // Show the specific "broken" GIF
+        reactionGif.src = config.gifs.broken;
+        
+        // Update text one last time
+        dynamicMessage.textContent = "Okay, that's it! You broke it! 💥";
+
         noBtn.style.position = 'fixed';
         noBtn.innerHTML = "💔 Broken...";
         noBtn.style.pointerEvents = "none"; // Disable clicking
