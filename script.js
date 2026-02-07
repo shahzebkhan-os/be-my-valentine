@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
         reactionGif.src = config.gifs.broken;
         
         // Update text one last time
-        dynamicMessage.textContent = "Okay, that's it! You broke it! 💥";
+        dynamicMessage.textContent = "Okay, that's it! SAY YES! 💥";
 
         noBtn.style.position = 'fixed';
         noBtn.innerHTML = "💔 Broken...";
