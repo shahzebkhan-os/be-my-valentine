@@ -12,6 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
             sad7: "./gifs/sad7.gif",
             sad8: "./gifs/sad8.gif",
             sad9: "./gifs/sad9.gif",
+            sad10: "./gifs/sad10.gif",
+            sad11: "./gifs/sad11.gif",
+            sad12: "./gifs/sad12.gif",
+            sad13: "./gifs/sad13.gif",
+            sad14: "./gifs/sad14.gif",
             success: "./gifs/success.gif"
         },
         messages: [
@@ -24,7 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
             "Don't do this to me! 🥺",
             "I believe in us! 💖",
             "Okay, now I'm getting mad! 😠",
-            "You're really mean! 😭"
+            "You're really mean! 😭",
+            "Why are you doing this? 😿",
+            "I'm losing hope... 🥀",
+            "Just say yes already! 😤",
+            "Final warning... ⚠️",
+            "I'm out of tears... 💧"
         ]
     };
 
@@ -46,8 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
     noBtn.addEventListener('click', () => {
         noClickCount++;
 
-        // 1. Change GIF and Message (Up to 9 clicks)
-        if (noClickCount <= 9) {
+        // 1. Change GIF and Message (Up to 14 clicks)
+        if (noClickCount <= 14) {
             // Update Message
             dynamicMessage.style.opacity = 0;
             setTimeout(() => {
@@ -66,13 +76,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
         yesBtn.style.fontSize = `${currentSize * 1.1}px`;
 
-        // 3. Runaway Logic (Starts after 7 clicks)
-        if (noClickCount >= 7 && noClickCount < 10) {
+        // 3. Runaway Logic (Starts after 7 clicks, stops at 15)
+        if (noClickCount >= 7 && noClickCount < 15) {
             makeButtonRunAway();
         }
 
-        // 4. Breaking Logic (At 10th click)
-        if (noClickCount === 10) {
+        // 4. Breaking Logic (At 15th click)
+        if (noClickCount === 15) {
             breakButton();
         }
     });
