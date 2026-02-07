@@ -1,13 +1,227 @@
-/* Additional styles can go here if needed */
-/* All styling is currently in the index.html file for simplicity */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap');
 
-/* Some extra animations that can be added later */
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.pulse {
-    animation: pulse 2s infinite;
+body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); /* Fallback */
+    background: radial-gradient(circle at center, #ffe6e6, #ffc3a0, #ffafbd);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    color: #4a4a4a;
+}
+
+/* Floating Hearts Background */
+.bg-heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.6);
+    transform: rotate(45deg);
+    animation: floatUp 15s linear infinite;
+    bottom: -10vh;
+    z-index: 0;
+}
+
+.bg-heart::before,
+.bg-heart::after {
+    content: "";
+    width: 20px;
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    position: absolute;
+}
+
+.bg-heart::before { top: -10px; left: 0; }
+.bg-heart::after { top: 0; left: -10px; }
+
+@keyframes floatUp {
+    0% { transform: translateY(0) rotate(45deg) scale(0.8); opacity: 0; }
+    20% { opacity: 0.8; }
+    100% { transform: translateY(-120vh) rotate(45deg) scale(1.2); opacity: 0; }
+}
+
+.container {
+    text-align: center;
+    padding: 2.5rem;
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(5px);
+    border-radius: 30px;
+    box-shadow: 0 15px 40px rgba(255, 105, 135, 0.3);
+    max-width: 90%;
+    width: 450px;
+    z-index: 10;
+    position: relative;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    transition: transform 0.3s ease;
+}
+
+.container:hover {
+    transform: translateY(-5px);
+}
+
+h1 {
+    color: #ff4d6d;
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    font-weight: 800;
+    line-height: 1.2;
+    text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.5);
+}
+
+.gif-container {
+    margin-bottom: 1.5rem;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-gif {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 15px;
+    object-fit: contain;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+}
+
+.message-text {
+    min-height: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #ff758c;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: opacity 0.3s ease;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    position: relative;
+    min-height: 60px;
+}
+
+.btn {
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    outline: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn-yes {
+    background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+    color: white;
+    box-shadow: 0 6px 0 #d94b63, 0 10px 10px rgba(0,0,0,0.1);
+}
+
+.btn-yes:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #d94b63, 0 5px 5px rgba(0,0,0,0.1);
+}
+
+.btn-no {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); /* Pastel mix */
+    background: #f0f0f0;
+    color: #555;
+    box-shadow: 0 6px 0 #ccc, 0 10px 10px rgba(0,0,0,0.1);
+}
+
+.btn-no:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #ccc, 0 5px 5px rgba(0,0,0,0.1);
+}
+
+/* Success State */
+.success-container {
+    display: none;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    z-index: 100;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.success-content {
+    background: white;
+    padding: 3rem;
+    border-radius: 30px;
+    box-shadow: 0 20px 50px rgba(255, 105, 135, 0.4);
+    max-width: 600px;
+    width: 90%;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.success-gif {
+    max-width: 100%;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #f00;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to { transform: translateY(100vh) rotate(720deg); }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+    .container {
+        padding: 1.5rem;
+        width: 95%;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .btn {
+        padding: 10px 24px;
+        font-size: 1rem;
+    }
+    
+    .gif-container {
+        height: 150px;
+    }
+    
+    .main-gif {
+        max-height: 150px;
+    }
 }
