@@ -3,19 +3,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const config = {
         gifs: {
             initial: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmM2ZThhN2w0aG55dG5wY2o3YXY5aGd2b2QzY3V3eWJ3Y3V3eWJ3Y3V3eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif",
-            sad1: "https://media.giphy.com/media/TRgyI2f0hRHBS/giphy.gif", // Sad puppy
-            sad2: "https://media.giphy.com/media/OPU6pZ2CVJbCSCWkzG/giphy.gif", // Crying cat
-            sad3: "https://media.giphy.com/media/d2lcHJTG5TSCnT0I/giphy.gif", // Crying office
-            sad4: "https://media.giphy.com/media/7SF5scGB2AFrgsXP63/giphy.gif", // Heartbroken
-            sad5: "https://media.giphy.com/media/BEob5qwFkQRzXd9Lr/giphy.gif", // Devastated
-            success: "https://media.giphy.com/media/26BRv0ThflsKCqM6k/giphy.gif" // Celebration
+            sad1: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/L95W4wv8nnb9K/giphy.gif", // Sad puppy
+            sad2: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/OPU6pZ2CVJbCSCWkzG/giphy.gif", // Crying cat
+            sad3: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/d2lcHJTG5TSCnT0I/giphy.gif", // Crying office
+            sad4: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/7SF5scGB2AFrgsXP63/giphy.gif", // Heartbroken
+            sad5: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/BEob5qwFkQRzXd9Lr/giphy.gif", // Devastated
+            sad6: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/13OflYHKPtjqYRm/giphy.gif", // Extra sad
+            sad7: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZDN6ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/qQdL532ZANbjy/giphy.gif", // Extra sad 2
+            success: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3J3a3Z5Z3Z5Z3Z5Z3Z5Z3Z5Z3Z5Z3Z5Z3Z5Z3Z5Z3Z5Z3Z5Z3Z5ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/26BRv0ThflsKCqM6k/giphy.gif" // Celebration
         },
         messages: [
             "Are you sure? 🥺",
-            "Please think again 💕",
+            "Please think again... 💕",
             "That hurt a little... 😢",
             "I'm going to cry... 😭",
-            "You're breaking my heart 💔",
+            "You're breaking my heart! 💔",
+            "Please? Pretty please? 🌸",
+            "Don't do this to me! 🥺",
             "I believe in us! 💖"
         ]
     };
@@ -84,12 +88,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const padding = 20;
         const btnRect = noBtn.getBoundingClientRect();
         
-        // Calculate safe area
+        // Calculate safe area (Screen width minus button width minus padding)
         const maxX = window.innerWidth - btnRect.width - padding;
         const maxY = window.innerHeight - btnRect.height - padding;
         
-        const randomX = Math.max(padding, Math.random() * maxX);
-        const randomY = Math.max(padding, Math.random() * maxY);
+        // Ensure coordinates are positive (prevent going off top/left)
+        const randomX = Math.max(padding, Math.min(Math.random() * maxX, maxX));
+        const randomY = Math.max(padding, Math.min(Math.random() * maxY, maxY));
 
         noBtn.style.left = `${randomX}px`;
         noBtn.style.top = `${randomY}px`;
@@ -137,24 +142,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Confetti Effect
     function startConfetti() {
-        const colors = ['#ff6b6b', '#ffc3a0', '#ffd166', '#06d6a0', '#118ab2'];
-        const confettiCount = 150;
+        const colors = ['#ff6b6b', '#ffc3a0', '#ffd166', '#06d6a0', '#118ab2', '#ff0000', '#ff00ff', '#00ffff'];
+        const confettiCount = 500; // Increased count for impact
 
         for (let i = 0; i < confettiCount; i++) {
             const confetti = document.createElement('div');
             confetti.classList.add('confetti');
-            confetti.style.left = Math.random() * 100 + 'vw';
-            confetti.style.top = -10 + 'px';
+            confetti.style.left = '50%'; // Start from center
+            confetti.style.top = '50%';
             confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
-            confetti.style.opacity = Math.random();
+            
+            // Random direction
+            const angle = Math.random() * 360;
+            const velocity = Math.random() * 20 + 10;
+            const tx = Math.cos(angle * Math.PI / 180) * window.innerWidth; // Shoot outwards
+            const ty = Math.sin(angle * Math.PI / 180) * window.innerHeight;
+            
+            confetti.style.setProperty('--tx', `${tx}px`);
+            confetti.style.setProperty('--ty', `${ty}px`);
+            
+            confetti.style.animationDuration = Math.random() * 2 + 1.5 + 's';
+            confetti.style.opacity = 1;
             confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
             
             document.body.appendChild(confetti);
 
             setTimeout(() => {
                 confetti.remove();
-            }, 5000);
+            }, 3000);
         }
     }
 });
